@@ -16,10 +16,9 @@
   * destroy() // prototype method that returns: `${this.name} was removed from the game.`
 */
 function GameObject(att) {
-  this.createdAt = att.createdAt,
-    this.name = att.name,
-    this.dimensions = att.dimensions;
-   
+  (this.createdAt = att.createdAt),
+    (this.name = att.name),
+    (this.dimensions = att.dimensions);
 }
 
 GameObject.prototype.destroy = function() {
@@ -33,10 +32,10 @@ GameObject.prototype.destroy = function() {
   * should inherit destroy() from GameObject's prototype
 */
 function CharacterStats(stats) {
-  GameObject.call(this, stats)
+  GameObject.call(this, stats);
   this.healthPoints = stats.healthPoints;
 }
-CharacterStats.prototype = Object.create(GameObject.prototype)
+CharacterStats.prototype = Object.create(GameObject.prototype);
 CharacterStats.prototype.takeDamage = function() {
   return `${this.name} took damage.`;
 };
@@ -125,3 +124,65 @@ console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
 // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.
 // * Give the Hero and Villains different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
 // * Create two new objects, one a villain and one a hero and fight it out with methods!
+
+
+function Hero(actions) {
+  Humanoid.call(this, actions);
+  (this.magic = actions.magic), 
+  (this.attack = actions.attack),
+  (this.heal = actions.heal)
+}
+
+Hero.prototype = Object.create(Humanoid.prototype);
+Hero.prototype.atk = function(){
+  return `${this.name} attacks with ${this.attack}`
+}
+
+function Villain(actions) {
+  Humanoid.call(this, actions);
+  (this.magic = actions.magic), 
+  (this.attack = actions.attack);
+  (this.heal = actions.heal)
+}
+Villain.prototype = Object.create(Humanoid.prototype);
+Villain.prototype.atk = function(){
+  return `${this.name} strikes with ${this.attack}`
+}
+
+const slayer = new Hero({
+  createdAt: new Date(),
+  dimensions: {
+    length: 2,
+    width: 2,
+    height: 5
+  },
+  healthPoints: 20,
+  name: "Sir Bast",
+  team: "Hunter",
+  weapons: ["Long Sword","Knights Shield", "Crossbow"],
+  language: "Common Toungue",
+  magic: "Fireball",
+  attack: "Slash",
+  heal: "potion"
+
+});
+
+
+const demon = new Villain({
+  createdAt: new Date(),
+  dimensions: {
+    length: 3,
+    width: 3,
+    height: 4
+  },
+  healthPoints: 25,
+  name: "Molog Bal",
+  team: "Underworld",
+  weapons: ["Mace", "Staff of Evil"],
+  language: "Ancient Tongue",
+  magic: "Dark",
+  attack: "Smash",
+  heal: "Blood"
+});
+console.log(demon.greet())
+console.log(slayer.greet())
