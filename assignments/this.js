@@ -58,5 +58,7 @@ let pet = {
     sound: 'meow'
 }
 
+
+
 cat.call(pet); // in this example instead of 'this' refering to cat 'this' is able to refer to pet because .call told it to refer to pet instead. 
-//When using .bind though, it will create a new function that is permanently bound to a 'this' value
+//When using .bind though, it will create a new function that is permanently bound to a 'this' value. .apply() allows you to pass in an array
